@@ -6,7 +6,7 @@ describe("getAPIKey", () => {
   it("should return null if no authorization header is present", () => {
     const headers: IncomingHttpHeaders = {};
     const result = getAPIKey(headers);
-    expect(result).not.toBeNull();
+    expect(result).toBeNull();
   });
 
   it("should return null if authorization header is malformed", () => {
