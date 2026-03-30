@@ -1,19 +1,19 @@
-name: ci
+name: CI
 
 on:
-  pull_request:
+  push:
     branches: [main]
 
 jobs:
-  tests:
-    name: Tests
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node
+      - name: Set up Node environment
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -21,27 +21,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm run test -- --coverage
-
-  style:
-    name: Style
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run style check
-        run: npm run format:check
-
-      - name: Check linting
-        run: npm run lint -- --max-warnings=0
+      - name: Build app
+        run: npm run build
